@@ -1,0 +1,301 @@
+/* ========================================
+   MATCHA AUCTIONS
+   Warm Neutral Theme
+   ======================================== */
+
+/* 1. Färger */
+:root {
+    --cream: #faf7f0;
+    --forest: #294b32;
+    --sage: #e9eee2;
+    --ink: #243328;
+    --muted: #687369;
+    --line: #e4e4d9;
+}
+
+/* 2. Grundinställningar */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    background: var(--cream);
+    color: var(--ink);
+    margin-bottom: 80px;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* 3. Rubriker */
+h1,
+h2,
+h3,
+.navbar-brand {
+    letter-spacing: -0.035em;
+}
+
+h1 {
+    font-weight: 750;
+}
+
+h2 {
+    font-weight: 720;
+}
+
+/* 4. Navigeringsmeny */
+.navbar {
+    background: #fffdf9 !important;
+    border-color: var(--line) !important;
+    box-shadow: 0 3px 20px #283c2510 !important;
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-family: Georgia, serif;
+    font-weight: bold;
+    color: #183b27 !important;
+    font-size: 1.55rem;
+}
+
+.nav-link {
+    color: #304332 !important;
+}
+
+.nav-link:hover {
+    color: #67824b !important;
+}
+
+/* 5. Knappar */
+.btn-primary {
+    background: var(--forest);
+    border-color: var(--forest);
+    border-radius: 7px;
+    padding: 10px 18px;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: #456c42;
+    border-color: #456c42;
+}
+
+.btn-outline-primary {
+    color: var(--forest);
+    border-color: var(--forest);
+}
+
+.btn-outline-primary:hover {
+    background: var(--forest);
+    border-color: var(--forest);
+}
+
+/* 6. Formulär */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #d9dfd4;
+    padding: 10px;
+}
+
+.form-control:focus {
+    border-color: #829a76;
+    box-shadow: 0 0 0 0.2rem #78986b24;
+}
+
+/* 7. Sidans layout */
+.container {
+    max-width: 1170px;
+}
+
+/* 8. Hero-sektion */
+.hero {
+    margin: 25px 0 38px;
+    padding: 60px 6%;
+    border-radius: 16px;
+    background: linear-gradient(115deg, #e7e9d9, #f2e6d2);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1.12;
+    margin: 14px 0;
+}
+
+.hero p {
+    color: #485948;
+    margin-bottom: 25px;
+}
+
+.hero-decoration {
+    font-size: 9rem;
+    line-height: 1;
+}
+
+.eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    font-weight: 800;
+    color: #607d50;
+}
+
+/* 9. Sektionsrubriker */
+.section-heading {
+    margin: 20px 0;
+}
+
+.section-heading p {
+    color: var(--muted);
+}
+
+/* 10. Auktionskort och produktlista */
+.auction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+    gap: 22px;
+    margin-bottom: 45px;
+}
+
+.auction-card,
+.content-panel,
+.detail-panel {
+    background: #fffefa;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    box-shadow: 0 8px 24px #253c2410;
+}
+
+.auction-card {
+    overflow: hidden;
+}
+
+.card-art {
+    height: 155px;
+    display: grid;
+    place-items: center;
+    font-size: 5rem;
+    background: linear-gradient(135deg, #e5ebd8, #d5c7a8);
+}
+
+.auction-card-body {
+    padding: 19px;
+}
+
+.auction-card h3 {
+    font-size: 1.3rem;
+    font-weight: 750;
+}
+
+.auction-card-body > p {
+    color: var(--muted);
+    min-height: 40px;
+}
+
+/* 11. Auktionsinformation */
+.auction-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.auction-meta div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.auction-meta small {
+    color: var(--muted);
+}
+
+.auction-meta strong {
+    font-size: 0.91rem;
+}
+
+.seller-note {
+    font-size: 0.8rem;
+    min-height: 0 !important;
+}
+
+.edit-link {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    color: var(--forest);
+}
+
+/* 12. Detaljsida och innehåll */
+.detail-panel,
+.content-panel {
+    padding: 28px;
+    margin: 20px 0;
+}
+
+.detail-heading h1 {
+    font-family: Georgia, serif;
+    margin: 8px 0 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin: 15px 0;
+    color: var(--forest);
+}
+
+/* 13. Tabeller */
+.table {
+    color: var(--ink);
+}
+
+.table > thead {
+    background: #f0f3eb;
+}
+
+.table > :not(caption) > * > * {
+    padding: 13px 12px;
+    border-bottom-color: var(--line);
+}
+
+/* 14. Sidfot */
+.footer {
+    background: #fffdf9;
+    padding: 18px 0;
+    line-height: normal !important;
+}
+
+.footer a {
+    color: var(--forest);
+}
+
+/* 15. Responsiv design – mobil */
+@media (max-width: 650px) {
+    .hero {
+        padding: 35px 22px;
+    }
+
+    .hero-decoration {
+        font-size: 4rem;
+    }
+
+    .detail-panel,
+    .content-panel {
+        padding: 18px;
+    }
+
+    .auction-grid {
+        grid-template-columns: 1fr;
+    }
+}
