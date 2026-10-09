@@ -7,7 +7,7 @@ namespace AuctionLab.Business.Interfaces
         Task<List<Auction>> GetActiveAuctionsAsync();
         Task<Auction?> GetAuctionByIdAsync(int id);
         Task CreateAuctionAsync(Auction auction);
-        Task PlaceBidAsync(int auctionId, string bidderId, decimal amount);
+        Task<string?> PlaceBidAsync(int auctionId, string bidderId, decimal amount);
         Task UpdateDescriptionAsync(int id, string description);
         Task<List<Auction>> GetMyActiveBidsAsync(string userId);
         Task<List<Auction>> GetWonAuctionsAsync(string userId);
