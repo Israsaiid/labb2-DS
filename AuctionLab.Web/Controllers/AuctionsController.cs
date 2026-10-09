@@ -134,8 +134,9 @@ namespace AuctionLab.Web.Controllers
         {
             var userId = _userManager.GetUserId(User)!;
 
-            await _auctionService.PlaceBidAsync(auctionId, userId, amount);
-
+            var error = await _auctionService.PlaceBidAsync(auctionId, userId, amount);
+            if (error != null) TempData["BidError"] = error;
+            else TempData["BidSuccess"] = "Ditt bud har registrerats!";
             return RedirectToAction(nameof(Details), new { id = auctionId });
         }
 
