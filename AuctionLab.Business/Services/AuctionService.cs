@@ -38,28 +38,28 @@ namespace AuctionLab.Business.Services
             await _repository.CreateAuctionAsync(auction);
         }
 
-        public async Task PlaceBidAsync(int auctionId, string bidderId, decimal amount)
+        // Returns null on success, otherwise a user-friendly validation message.
+        public async Task<string?> PlaceBidAsync(int auctionId, string bidderId, decimal amount)
         {
             var auction = await _repository.GetAuctionWithBidsAsync(auctionId);
+            if (auction == null) return "Auktionen finns inte.";
+            if (auction.SellerId == bidderId) return "Du kan inte lägga bud på din egen auktion.";
+            if (auction.EndTime <= DateTime.Now) return "Auktionen har avslutats. Det går inte längre att lägga bud.";
 
-            if (auction == null || auction.SellerId == bidderId || auction.EndTime <= DateTime.Now)
-                return;
-
-            var highest = (auction.Bids != null && auction.Bids.Any())
+            var highest = auction.Bids != null && auction.Bids.Any()
                 ? auction.Bids.Max(b => b.Amount)
                 : auction.StartPrice;
             if (amount <= highest)
-                return;
+                return $"Ditt bud måste vara högre än {highest:0.##} kr.";
 
-            var bid = new Bid
+            await _repository.AddBidAsync(new Bid
             {
                 AuctionId = auctionId,
                 BidderId = bidderId,
                 Amount = amount,
                 Created = DateTime.Now
-            };
-
-            await _repository.AddBidAsync(bid);
+            });
+            return null;
         }
 
         public async Task UpdateDescriptionAsync(int id, string description)
