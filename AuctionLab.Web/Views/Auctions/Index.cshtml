@@ -1,0 +1,47 @@
+@model IEnumerable<AuctionLab.Web.Models.ActiveAuctionVM>
+
+@{
+    ViewData["Title"] = "Active auctions";
+}
+
+<h2>Active auctions</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start price</th>
+            <th>Ends</th>
+            <th>Seller</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.Title</td>
+                <td>@a.Description</td>
+                <td>@a.StartPrice</td>
+                <td>@a.EndTime</td>
+                <td>@a.SellerName</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@a.Id">Details</a>
+
+                    @{
+                        var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                    }
+
+                    @if (User.Identity!.IsAuthenticated && userId == a.SellerId)
+                    {
+                        @: |
+                        <a asp-action="Edit" asp-route-id="@a.Id">Edit</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Create new auction</a>

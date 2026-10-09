@@ -1,0 +1,58 @@
+@model AuctionLab.Web.Models.AuctionDetailsVM
+
+@{
+    ViewData["Title"] = "Auction details";
+    var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+}
+
+<h2>@Model.Title</h2>
+
+@if (User.Identity!.IsAuthenticated && userId == Model.SellerId)
+{
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary">
+        Edit description
+    </a>
+}
+
+<p>@Model.Description</p>
+<p><strong>Start price:</strong> @Model.StartPrice</p>
+<p><strong>Ends:</strong> @Model.EndTime</p>
+<p><strong>Highest bid:</strong> @Model.HighestBid (@Model.HighestBidderName)</p>
+<p><strong>Seller:</strong> @Model.SellerName</p>
+
+
+<h3>Bids</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Bidder</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var b in Model.Bids)
+        {
+            <tr>
+                <td>@b.Amount</td>
+                <td>@b.BidderName</td>
+                <td>@b.Created</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h3>Place a bid</h3>
+
+    <form asp-action="PlaceBid" asp-route-auctionId="@Model.Id" method="post">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="amount">Your bid</label>
+            <input type="number" step="0.01" name="amount" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Place bid</button>
+    </form>
+
+}
