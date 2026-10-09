@@ -5,7 +5,11 @@
     var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 }
 
-<h2>@Model.Title</h2>
+<a asp-action="Index" class="back-link">← Back to auctions</a>
+<section class="detail-panel"><div class="detail-heading"><span class="eyebrow">MATCHA AUCTION</span><h1>@Model.Title</h1></div>
+@if (TempData["BidError"] is string bidError) { <div class="alert alert-danger" role="alert">@bidError</div> }
+@if (TempData["BidSuccess"] is string bidSuccess) { <div class="alert alert-success" role="status">@bidSuccess</div> }
+
 
 @if (User.Identity!.IsAuthenticated && userId == Model.SellerId)
 {
@@ -15,13 +19,13 @@
 }
 
 <p>@Model.Description</p>
-<p><strong>Start price:</strong> @Model.StartPrice</p>
+<p><strong>Start price:</strong> @Model.StartPrice kr</p>
 <p><strong>Ends:</strong> @Model.EndTime</p>
-<p><strong>Highest bid:</strong> @Model.HighestBid (@Model.HighestBidderName)</p>
-<p><strong>Seller:</strong> @Model.SellerName</p>
+<p><strong>Highest bid:</strong> @Model.HighestBid kr</p>
+<p><strong>Seller:</strong> @Model.SellerName</p></section>
 
 
-<h3>Bids</h3>
+<section class="content-panel"><h3>Bids</h3>
 <table class="table">
     <thead>
         <tr>
@@ -40,19 +44,19 @@
             </tr>
         }
     </tbody>
-</table>
+</table></section>
 
 @if (User.Identity.IsAuthenticated)
 {
-    <h3>Place a bid</h3>
+    <section class="content-panel"><h3>Place a bid</h3>
 
     <form asp-action="PlaceBid" asp-route-auctionId="@Model.Id" method="post">
         @Html.AntiForgeryToken()
         <div class="form-group">
             <label for="amount">Your bid</label>
-            <input type="number" step="0.01" name="amount" class="form-control" />
+            <input type="number" step="0.01" min="0.01" required name="amount" class="form-control" />
         </div>
         <button type="submit" class="btn btn-primary">Place bid</button>
-    </form>
+    </form></section>
 
 }
