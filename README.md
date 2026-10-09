@@ -2,8 +2,8 @@
 
 
 ## Gruppmedlemmar
-Salma Sabul - sabul@kth.se
-Bushra Ahmed - Bushraa@kth.se
+Isra Said - isras@kth.se
+Alifa Qazvin Khan - aqkhan@kth.se
 
 ## Beskrivning
 AuctionLab är ett förenklat auktionssystem byggt i ASP.NET Core 8 med MVC-arkitektur.
