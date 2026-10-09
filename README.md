@@ -1,8 +1,8 @@
-# AuctionLab – Laboration 2 (ASP.NET Core MVC)
+# Laboration 2 (ASP.NET Core MVC)
 
 
 ## Gruppmedlemmar
-Isra Said - isras@kth.se
+Isra Said - isras@kth.se och
 Alifa Qazvin Khan - aqkhan@kth.se
 
 ## Beskrivning
