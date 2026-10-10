@@ -1,47 +1,158 @@
+
 @model IEnumerable<AuctionLab.Web.Models.ActiveAuctionVM>
 
 @{
     ViewData["Title"] = "Active auctions";
+
+    var userId = User.FindFirst(
+        System.Security.Claims.ClaimTypes.NameIdentifier
+    )?.Value;
 }
 
-<h2>Active auctions</h2>
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-content">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Start price</th>
-            <th>Ends</th>
-            <th>Seller</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var a in Model)
-        {
-            <tr>
-                <td>@a.Title</td>
-                <td>@a.Description</td>
-                <td>@a.StartPrice</td>
-                <td>@a.EndTime</td>
-                <td>@a.SellerName</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@a.Id">Details</a>
+        <span class="eyebrow">
+            WELCOME TO MATCHA AUCTIONS
+        </span>
 
-                    @{
-                        var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-                    }
+        <h1>
+            Unique matcha items.<br />
+            Bid, collect, enjoy.
+        </h1>
 
-                    @if (User.Identity!.IsAuthenticated && userId == a.SellerId)
-                    {
-                        @: |
-                        <a asp-action="Edit" asp-route-id="@a.Id">Edit</a>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <p>
+            Discover and bid on high-quality matcha products,
+            from traditional bowls to premium matcha powder.
+        </p>
 
-<a asp-action="Create" class="btn btn-primary">Create new auction</a>
+    </div>
+</section>
+
+
+<!-- ACTIVE AUCTIONS -->
+<section class="auctions-section">
+
+    <div class="section-heading">
+        <h2>Active auctions</h2>
+        <p>
+            Explore our collection of matcha-inspired items.
+        </p>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="auction-grid">
+
+            @foreach (var a in Model)
+            {
+                var imagePath = "/images/matcha-hero.png";
+
+                if (a.Title.Contains(
+                    "powder",
+                    StringComparison.OrdinalIgnoreCase) ||
+                    a.Title.Contains(
+                        "pulver",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    imagePath = "/images/matcha-powder.jpg";
+                }
+                else if (a.Title.Contains(
+                    "bowl",
+                    StringComparison.OrdinalIgnoreCase) ||
+                    a.Title.Contains(
+                        "skål",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    imagePath = "/images/matcha-bowl.jpg";
+                }
+                else if (a.Title.Contains(
+                    "cup",
+                    StringComparison.OrdinalIgnoreCase) ||
+                    a.Title.Contains(
+                        "kopp",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    imagePath = "/images/matcha-cup.jpg";
+                }
+
+                <div class="auction-card">
+
+                    <!-- PRODUCT IMAGE -->
+                    <div class="card-art">
+                        <img src="@imagePath"
+                             alt="@a.Title" />
+                    </div>
+
+                    <!-- PRODUCT INFORMATION -->
+                    <div class="auction-card-body">
+
+                        <h3>@a.Title</h3>
+
+                        <p>@a.Description</p>
+
+                        <div class="auction-meta">
+
+                            <div>
+                                <small>Start price</small>
+                                <strong>
+                                    @a.StartPrice.ToString("0.00") kr
+                                </strong>
+                            </div>
+
+                            <div>
+                                <small>Ends</small>
+                                <strong>
+                                    @a.EndTime.ToString("dd MMM yyyy")
+                                </strong>
+                            </div>
+
+                        </div>
+
+                        <p class="seller-note">
+                            Seller: @a.SellerName
+                        </p>
+
+                        <a asp-action="Details"
+                           asp-route-id="@a.Id"
+                           class="btn btn-primary w-100">
+                            View auction
+                        </a>
+
+                        @if (User.Identity?.IsAuthenticated == true
+                            && userId == a.SellerId)
+                        {
+                            <a asp-action="Edit"
+                               asp-route-id="@a.Id"
+                               class="edit-link">
+                                Edit auction
+                            </a>
+                        }
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="content-panel text-center">
+            <h3>No active auctions yet</h3>
+
+            <p>
+                There are currently no active auctions.
+                Be the first to create one!
+            </p>
+        </div>
+    }
+
+    <div class="text-center mb-5">
+        <a asp-action="Create"
+           class="btn btn-primary">
+            Create new auction
+        </a>
+    </div>
+
+</section>
