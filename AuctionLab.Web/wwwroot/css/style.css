@@ -1,3 +1,4 @@
+
 /* ========================================
    MATCHA AUCTIONS
    Warm Neutral Theme
@@ -11,6 +12,7 @@
     --ink: #243328;
     --muted: #687369;
     --line: #e4e4d9;
+    --white: #fffdf9;
 }
 
 /* 2. Grundinställningar */
@@ -51,7 +53,7 @@ h2 {
 
 /* 4. Navigeringsmeny */
 .navbar {
-    background: #fffdf9 !important;
+    background: var(--white) !important;
     border-color: var(--line) !important;
     box-shadow: 0 3px 20px #283c2510 !important;
     padding: 15px 0;
@@ -116,9 +118,22 @@ h2 {
 /* 8. Hero-sektion */
 .hero {
     margin: 25px 0 38px;
-    padding: 60px 6%;
+    min-height: 290px;
+    padding: 45px 6%;
     border-radius: 16px;
-    background: linear-gradient(115deg, #e7e9d9, #f2e6d2);
+
+    background-image:
+            linear-gradient(
+                    90deg,
+                    rgba(250, 247, 240, 0.98) 0%,
+                    rgba(250, 247, 240, 0.92) 38%,
+                    rgba(250, 247, 240, 0.05) 75%
+            ),
+            url("../images/matcha-hero.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     display: flex;
     align-items: center;
@@ -132,11 +147,14 @@ h2 {
     font-size: clamp(2rem, 4vw, 3.4rem);
     line-height: 1.12;
     margin: 14px 0;
+    max-width: 440px;
+    color: #173323;
 }
 
 .hero p {
     color: #485948;
     margin-bottom: 25px;
+    max-width: 370px;
 }
 
 .hero-decoration {
@@ -163,8 +181,8 @@ h2 {
 /* 10. Auktionskort och produktlista */
 .auction-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
     margin-bottom: 45px;
 }
 
@@ -182,11 +200,19 @@ h2 {
 }
 
 .card-art {
-    height: 155px;
+    height: 190px;
     display: grid;
     place-items: center;
     font-size: 5rem;
     background: linear-gradient(135deg, #e5ebd8, #d5c7a8);
+}
+
+.card-art img,
+.auction-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
 }
 
 .auction-card-body {
@@ -194,6 +220,8 @@ h2 {
 }
 
 .auction-card h3 {
+    font-family: Georgia, serif;
+    color: #173323;
     font-size: 1.3rem;
     font-weight: 750;
 }
@@ -255,6 +283,13 @@ h2 {
     color: var(--forest);
 }
 
+.auction-detail-image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
 /* 13. Tabeller */
 .table {
     color: var(--ink);
@@ -271,7 +306,7 @@ h2 {
 
 /* 14. Sidfot */
 .footer {
-    background: #fffdf9;
+    background: var(--white);
     padding: 18px 0;
     line-height: normal !important;
 }
@@ -280,14 +315,156 @@ h2 {
     color: var(--forest);
 }
 
-/* 15. Responsiv design – mobil */
-@media (max-width: 650px) {
+/* ========================================
+   15. LOGIN PAGE
+   ======================================== */
+
+.login-page {
+    min-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 55px 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--white);
+    border: 1px solid #e9e3d8;
+    border-radius: 14px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(40, 55, 35, 0.07);
+}
+
+/* Login-rubrik */
+.login-heading {
+    margin-bottom: 30px;
+}
+
+.login-eyebrow {
+    color: #73876b;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.login-heading h1 {
+    font-family: Georgia, serif;
+    font-size: 2.3rem;
+    color: #173323;
+    margin: 12px 0;
+}
+
+.login-heading p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Login-formulär */
+.login-card .form-label {
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+}
+
+.login-card .form-control {
+    background: #ffffff;
+    border: 1px solid #deded5;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.login-card .form-control:focus {
+    border-color: #829a76;
+    box-shadow: 0 0 0 0.2rem #78986b24;
+}
+
+/* Remember me och glömt lösenord */
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    font-size: 0.85rem;
+}
+
+.login-options a,
+.login-footer a {
+    color: #345537;
+    text-decoration: none;
+}
+
+.login-options a:hover,
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+.login-card .form-check-input:checked {
+    background-color: #345537;
+    border-color: #345537;
+}
+
+/* Login-knapp */
+.login-button {
+    width: 100%;
+    background: #345537;
+    border-color: #345537;
+    border-radius: 6px;
+    padding: 12px;
+    font-weight: 600;
+}
+
+.login-button:hover {
+    background: #243e28;
+    border-color: #243e28;
+}
+
+/* Login-footer */
+.login-footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.login-footer p {
+    margin-bottom: 10px;
+}
+
+/* Externa inloggningar */
+.external-login {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e9e3d8;
+    text-align: center;
+}
+
+/* ========================================
+   16. RESPONSIV DESIGN
+   ======================================== */
+
+@media (max-width: 768px) {
+    .auction-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .hero {
+        min-height: 260px;
         padding: 35px 22px;
+        background-position: 65% center;
     }
 
     .hero-decoration {
         font-size: 4rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .auction-grid {
+        grid-template-columns: 1fr;
     }
 
     .detail-panel,
@@ -295,7 +472,19 @@ h2 {
         padding: 18px;
     }
 
-    .auction-grid {
-        grid-template-columns: 1fr;
+    .login-page {
+        padding: 30px 10px;
+    }
+
+    .login-card {
+        padding: 25px 20px;
+    }
+
+    .login-heading h1 {
+        font-size: 1.9rem;
+    }
+
+    .login-options {
+        flex-wrap: wrap;
     }
 }
